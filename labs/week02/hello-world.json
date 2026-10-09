@@ -1,0 +1,123 @@
+{
+  "name": "hello world erik sellers",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "b559d12a-792a-42cd-906d-5ef1b827c384",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b6f289ac-cfe1-4432-8ba0-53adaea1e9e3",
+              "name": "student_name",
+              "value": "erik sellers",
+              "type": "string"
+            },
+            {
+              "id": "bacec44f-1935-4ec4-9ec2-89029ae4ae73",
+              "name": "course",
+              "value": "cis 91",
+              "type": "string"
+            },
+            {
+              "id": "377557da-41f6-46ba-a799-d6fc0b7edfae",
+              "name": "message",
+              "value": "hello world from n8n",
+              "type": "string"
+            },
+            {
+              "id": "1502876d-09c1-474d-b37a-906725a6bca3",
+              "name": "timestamp",
+              "value": "={{ $now.toISO() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        224,
+        0
+      ],
+      "id": "d2ffa010-7274-499f-b878-cf81ec23363a",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0e335ee1-4b71-423a-9450-43d01eed5a3d",
+              "name": "greeting",
+              "value": "={{ \"Welcome, \" + $json.student_name + \"! You are enrolled in \" + $json.course + \". Today is \" + $json.timestamp.substring(0, 10) + \".\" }}",
+              "type": "string"
+            },
+            {
+              "id": "4d0d4eca-323d-4cc2-8a6b-166bddead322",
+              "name": "word_count",
+              "value": "={{ $json.message.split(' ').length }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        448,
+        0
+      ],
+      "id": "3b7974a3-1af5-4114-946b-9275d02b04a7",
+      "name": "Edit Fields1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "7e523f18-6f44-4206-88ff-d4d2af9af9bb",
+  "meta": {
+    "instanceId": "74ee99bc740c6dac711ced63f616b978808d56ad1bdf9d964ab20472df081c38"
+  },
+  "nodeGroups": [],
+  "id": "eQqBMQOGDsJcNEup",
+  "tags": []
+}
