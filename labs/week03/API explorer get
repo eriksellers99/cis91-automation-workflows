@@ -1,0 +1,255 @@
+{
+  "name": "part 1 api explorer get request",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -352,
+        32
+      ],
+      "id": "e05a93e8-3d51-4bd1-b38f-492a3eb84bd6",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://wttr.in/Palm+Desert?format=j1",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        224,
+        -128
+      ],
+      "id": "ae6e7cc9-376f-48d5-8e57-8399b73a9ba4",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c7b5733b-eb77-4ad4-904d-c9628122b572",
+              "name": "location",
+              "value": "={{ $json.nearest_area[0].areaName[0].value }}",
+              "type": "string"
+            },
+            {
+              "id": "e5dd78de-c206-4889-bacd-1bb8dc289767",
+              "name": "temp_f",
+              "value": "={{ $json.current_condition[0].temp_F }}",
+              "type": "string"
+            },
+            {
+              "id": "31a164bb-54e9-4327-9029-b79e672d318a",
+              "name": "description",
+              "value": "={{ $json.current_condition[0].weatherDesc[0].value }}",
+              "type": "string"
+            },
+            {
+              "id": "27817b8e-c364-479b-aab9-c9916e376d77",
+              "name": "humidity",
+              "value": "={{ $json.current_condition[0].humidity }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        432,
+        -128
+      ],
+      "id": "383dd76c-7647-4fa1-a2f4-153242744435",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "url": "https://randomuser.me/api/",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        240,
+        176
+      ],
+      "id": "c488b880-579f-4027-b206-b7829a07ecc5",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1dff8887-1586-41ae-9400-9f69b12b723e",
+              "name": "full_name",
+              "value": "={{ $json.results[0].name.first + \" \" + $json.results[0].name.last }}",
+              "type": "string"
+            },
+            {
+              "id": "37e4a0cc-85b6-4582-b00a-6453ba29f941",
+              "name": "email",
+              "value": "={{ $json.results[0].email }}",
+              "type": "string"
+            },
+            {
+              "id": "9482cb07-4a86-4142-a96e-a8f737e5b04b",
+              "name": "country",
+              "value": "={{ $json.results[0].location.country }}",
+              "type": "string"
+            },
+            {
+              "id": "0a0e6582-020c-4fea-bb73-d84ed488c97a",
+              "name": "age",
+              "value": "={{ $json.results[0].dob.age }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        448,
+        176
+      ],
+      "id": "d504fb15-be6c-41be-ae5b-21ab5aa8ee43",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "url": "https://icanhazdadjoke.com/",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        208,
+        448
+      ],
+      "id": "2d1074fa-8f53-40fb-a684-7dca65605a34",
+      "name": "HTTP Request2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "db27bc76-a578-47ea-9a07-d774b9460f14",
+              "name": "joke",
+              "value": "={{ $json.joke }}",
+              "type": "string"
+            },
+            {
+              "id": "a09ea1e1-9c6a-4993-b847-7c24bad7aebe",
+              "name": "joke_id",
+              "value": "={{ $json.id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        432,
+        448
+      ],
+      "id": "612dd2fb-3e18-490b-bf05-2d64b2819d6f",
+      "name": "Edit Fields2"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP Request2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        []
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request2": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "a3c02dff-7d19-47a5-a40e-9e6fac9e41b4",
+  "meta": {
+    "instanceId": "74ee99bc740c6dac711ced63f616b978808d56ad1bdf9d964ab20472df081c38"
+  },
+  "nodeGroups": [],
+  "id": "P8roNkTb2eygoT7z",
+  "tags": []
+}
